@@ -556,11 +556,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>byte[] enumValueName(Key key, int valueNameIndex, int maxValueNameLength)</code> instead of
    *****************************************************************************************************************************/
-  public byte[] _enumValueName(int key, int valueNameIndex, int maxValueNameLength) throws RegistryErrorException
+  public byte[] _enumValueName(long key, int valueNameIndex, int maxValueNameLength) throws RegistryErrorException
   {
     try
     {
-      return (byte[])enumValue.invoke(null, new Object[] {new Integer(key), new Integer(valueNameIndex), new Integer(maxValueNameLength)});
+      return (byte[])enumValue.invoke(null, new Object[] {new Long(key), new Integer(valueNameIndex), new Integer(maxValueNameLength)});
     }
     catch (InvocationTargetException ex)
     {
@@ -607,20 +607,20 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>List listValueNames(Key key, String subkey)</code> instead of
    ****************************************************************************************************************************/
-  public List _listValueNames(int key, String subkey) throws RegistryErrorException
+  public List _listValueNames(long key, String subkey) throws RegistryErrorException
   {
-    int handle = -1;
+    long handle = -1;
     try{
       handle = _openKey(key, subkey, KEY_READ); //just reading priv
       if(handle != -1)
       {
-        int info[] = _getChildInformation(handle); //obtain the informations
+        long info[] = _getChildInformation(handle); //obtain the informations
         if(info != null && info[0] != -1)
         {
           List ret = new ArrayList();
           for(int x = 0; x != info[2]; x++)
           {
-            String tmp = parseValue(_enumValueName(handle,x,info[4] + 1));
+            String tmp = parseValue(_enumValueName(handle,x,( int )(info[4] + 1)));
             if(tmp != null) //just if not null, maybe there are no valueNames
               ret.add(tmp);
           }
@@ -649,7 +649,7 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>List listValueNames(Key key)</code> instead of
    ****************************************************************************************************************************/
-  public List _listValueNames(int key) throws RegistryErrorException
+  public List _listValueNames(long key) throws RegistryErrorException
   {
     return _listValueNames(key,null);
   }
@@ -682,11 +682,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>byte[] enumKeys(Key key, int subkexindex, int maxKeyNameLength)</code> instead of
    *****************************************************************************************************************************/
-  public byte[] _enumKeys(int key, int subkeyIndex, int maxKeyNameLength) throws RegistryErrorException
+  public byte[] _enumKeys(long key, int subkeyIndex, int maxKeyNameLength) throws RegistryErrorException
   {
     try
     {
-      return (byte[])enumKey.invoke(null, new Object[] {new Integer(key), new Integer(subkeyIndex), new Integer(maxKeyNameLength)});
+      return (byte[])enumKey.invoke(null, new Object[] {new Long(key), new Integer(subkeyIndex), new Integer(maxKeyNameLength)});
     }
     catch (InvocationTargetException ex)
     {
@@ -733,20 +733,20 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>List listKeys(Key key, String subkey)</code> instead of
    *****************************************************************************************************************************/
-  public List _listKeys(int key, String subkey) throws RegistryErrorException
+  public List _listKeys(long key, String subkey) throws RegistryErrorException
   {
-    int handle = -1;
+    long handle = -1;
     try{
       handle = _openKey(key, subkey, KEY_READ); //just reading priv
       if(handle != -1)
       {
-        int info[] = _getChildInformation(handle); //obtain the informations
+        long info[] = _getChildInformation(handle); //obtain the informations
         if(info != null && info[0] != -1)
         {
           List ret = new ArrayList();
           for(int x = 0; x != info[0]; x++)
           {
-            String tmp = parseValue(_enumKeys(handle,x,info[3] + 1));
+            String tmp = parseValue(_enumKeys(handle,x,( int )(info[3] + 1)));
             if(tmp != null) //just if not null, maybe there are no valueNames
               ret.add(tmp);
           }
@@ -775,7 +775,7 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>List listKeys(Key key)</code> instead of
    ****************************************************************************************************************************/
-  public List _listKeys(int key) throws RegistryErrorException
+  public List _listKeys(long key) throws RegistryErrorException
   {
     return _listKeys(key,null);
   }
@@ -791,7 +791,7 @@ final public class Regor
    * if nothing found or illegal key, the values are -1 of the array (at index 1 the value would be 6 the other -1)
    * @throws RegistryErrorException
    *****************************************************************************************************************************/
-  public int[] getChildInformation(Key key) throws RegistryErrorException
+  public long[] getChildInformation(Key key) throws RegistryErrorException
   {
     return _getChildInformation(key.getKey());
   }
@@ -808,11 +808,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>int[] getChildInformation(Key key)</code> instead of
    *****************************************************************************************************************************/
-  public int[] _getChildInformation(int key) throws RegistryErrorException
+  public long[] _getChildInformation(long key) throws RegistryErrorException
   {
     try
     {
-      return (int[])queryInfoKey.invoke(null, new Object[] {new Integer(key)});
+      return (long[])queryInfoKey.invoke(null, new Object[] {new Long(key)});
     }
     catch (InvocationTargetException ex)
     {
@@ -865,11 +865,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>int delValue(Key key, String valueName)</code> instead of
    *****************************************************************************************************************************/
-  public int _delValue(int key, String valueName) throws RegistryErrorException
+  public int _delValue(long key, String valueName) throws RegistryErrorException
   {
     try
     {
-      Integer ret = (Integer)delValue.invoke(null, new Object[] {new Integer(key), getString(valueName)});
+      Integer ret = (Integer)delValue.invoke(null, new Object[] {new Long(key), getString(valueName)});
       if(ret != null)
         return ret.intValue();
       else
@@ -935,11 +935,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>int setValue(Key key, String valueName, String value)</code> instead of
    *****************************************************************************************************************************/
-  public int _setValue(int key,String valueName, String value) throws RegistryErrorException
+  public int _setValue(long key,String valueName, String value) throws RegistryErrorException
   {
     try
     {
-      Integer ret = (Integer)setValue.invoke(null, new Object[] {new Integer(key), getString(valueName), getString(value)});
+      Integer ret = (Integer)setValue.invoke(null, new Object[] {new Long(key), getString(valueName), getString(value)});
       if(ret != null)
         return ret.intValue();
       else
@@ -1003,11 +1003,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>byte[] readValue(Key key, String valueName)</code> instead of
    *****************************************************************************************************************************/
-  public byte[] _readValue(int key, String valueName) throws RegistryErrorException
+  public byte[] _readValue(long key, String valueName) throws RegistryErrorException
   {
     try
     {
-      byte ret[] = (byte[])queryValue.invoke(null, new Object[] {new Integer(key), getString(valueName)});
+      byte ret[] = (byte[])queryValue.invoke(null, new Object[] {new Long(key), getString(valueName)});
       return ret;
     }
     catch (InvocationTargetException ex)
@@ -1163,11 +1163,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>int flushKey(Key key)</code> instead of
    *****************************************************************************************************************************/
-  public int _flushKey(int key) throws RegistryErrorException
+  public int _flushKey(long key) throws RegistryErrorException
   {
     try
     {
-      Integer ret = (Integer)flushKey.invoke(null, new Object[] {new Integer(key)});
+      Integer ret = (Integer)flushKey.invoke(null, new Object[] {new Long(key)});
       if(ret != null)
         return ret.intValue();
       else
@@ -1207,13 +1207,13 @@ final public class Regor
    * @throws RegistryErrorException if subkey is empty or null or any other exception occurs
    * @deprecated use <code>int delKey(Key key, String subkey)</code> instead of
    *****************************************************************************************************************************/
-  public int _delKey(int key, String subkey) throws RegistryErrorException
+  public int _delKey(long key, String subkey) throws RegistryErrorException
   {
     if(subkey == null || subkey.length() == 0)
       throw new RegistryErrorException("subkey cannot be null");
     try
     {
-      Integer ret = (Integer)delKey.invoke(null, new Object[] {new Integer(key), getString(subkey)});
+      Integer ret = (Integer)delKey.invoke(null, new Object[] {new Long(key), getString(subkey)});
       if(ret != null)
         return ret.intValue();
       else
@@ -1244,7 +1244,7 @@ final public class Regor
    *****************************************************************************************************************************/
   public Key createKey(Key key, String subkey) throws RegistryErrorException
   {
-    int tmpKey = _createKey(key.getKey(), subkey);
+    long tmpKey = _createKey(key.getKey(), subkey);
     if(tmpKey == -1)
       return null;
     else
@@ -1261,11 +1261,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>Key createKey(Key key, String subkey)</code> instead of
    *****************************************************************************************************************************/
-  public int _createKey(int key, String subkey) throws RegistryErrorException
+  public long _createKey(long key, String subkey) throws RegistryErrorException
   {
     try
     {
-      int result[] = (int[])createKey.invoke(null, new Object[] {new Integer(key), getString(subkey)});
+      long result[] = (long[])createKey.invoke(null, new Object[] {new Long(key), getString(subkey)});
       if(result[ERROR_CODE] == ERROR_SUCCESS)
         return result[NATIVE_HANDLE];
       else
@@ -1303,11 +1303,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>closeKey(Key key)</code> instead of
    ****************************************************************************************************************************/
-  public int _closeKey(int key) throws RegistryErrorException
+  public int _closeKey(long key) throws RegistryErrorException
   {
     try
     {
-      Integer ret = (Integer)closeKey.invoke(null, new Object[] {new Integer(key)});
+      Integer ret = (Integer)closeKey.invoke(null, new Object[] {new Long(key)});
       if(ret != null)
         return ret.intValue();
       else
@@ -1338,7 +1338,7 @@ final public class Regor
    *****************************************************************************************************************************/
   public Key openKey(Key key, String subkey, int security_mask) throws RegistryErrorException
   {
-    int tmpKey = _openKey(key.getKey(), subkey, security_mask);
+    long tmpKey = _openKey(key.getKey(), subkey, security_mask);
     if(tmpKey == -1)
       return null;
     else
@@ -1369,11 +1369,11 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>openKey(Key key, String subkey, int security_mask)</code> instead of
    *****************************************************************************************************************************/
-  public int _openKey(int key, String subkey, int security_mask) throws RegistryErrorException
+  public long _openKey(long key, String subkey, int security_mask) throws RegistryErrorException
   {
     try
     {
-      int[] result = (int[])openKey.invoke(null, new Object[]{new Integer(key),getString(subkey),new Integer(security_mask)});
+      long[] result = (long[])openKey.invoke(null, new Object[]{new Long(key),getString(subkey),new Integer(security_mask)});
       if(result == null || result[ERROR_CODE] != ERROR_SUCCESS)
         return -1;
       else
@@ -1403,7 +1403,7 @@ final public class Regor
    * @throws RegistryErrorException
    * @deprecated use <code>openKey(Key key, String subkey)</code> instead of
    *****************************************************************************************************************************/
-  public int _openKey(int key, String subkey) throws RegistryErrorException
+  public long _openKey(long key, String subkey) throws RegistryErrorException
   {
     return _openKey(key,subkey,KEY_ALL_ACCESS);
   }
@@ -1906,7 +1906,7 @@ final public class Regor
     {
       System.out.println("NOW USING DEPRECATED REGOR!");
       //opening dhe LOCAL_MACHINE entry and software\microsoft - the delimiter is the \\
-      int key = regor._openKey(_HKEY_LOCAL_MACHINE, "Software\\Microsoft"), key2 = -1;
+      long key = regor._openKey(_HKEY_LOCAL_MACHINE, "Software\\Microsoft"), key2 = -1;
       //listing the subkeys
       List l = regor._listKeys(key);
       System.out.println("SOME KEYS....");

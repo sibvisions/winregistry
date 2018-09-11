@@ -15,7 +15,7 @@ package at.jta;
 final public class Key
 {
   private String path;
-  private int key;
+  private long key;
 
   /**
    * Default constructor
@@ -29,7 +29,7 @@ final public class Key
    * @param key int
    * @param path String
    */
-  public Key(int key, String path)
+  public Key(long key, String path)
   {
     setKey(key);
     setPath(path);
@@ -41,13 +41,13 @@ final public class Key
    * @param key int the key handle
    * @param subPath String subpath which will be append to the parent path
    */
-  protected Key(Key parentKey, int key, String subPath)
+  protected Key(Key parentKey, long key, String subPath)
   {
     setKey(key);
     setPath(parentKey.getPath() + "\\" + subPath);
   }
 
-  public int getKey()
+  public long getKey()
   {
     return key;
   }
@@ -57,7 +57,7 @@ final public class Key
     return path;
   }
 
-  public void setKey(int key)
+  public void setKey(long key)
   {
     this.key = key;
   }

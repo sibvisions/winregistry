@@ -40,7 +40,6 @@ import java.io.FileOutputStream;
  * @version 3.3 20.10.2008 found major bug in the method extractAnyValue - the method returned and value found with the name, not only
  *  for the right key<br>
  * @version 3.4 21.10.2008 bug in the parseHexString method when you want to replace the 0 signs! It removed every 0 sign
- * @released 21.10.2008 (internal release)
  * @version 4.0 RC2 14.04.2009 From a discussion at the java-forum.org board, a member told me, that there is also a native
  *                     command called "reg.exe" and vista doesnt need admin privileges when you run it! So the version checks if
  *                     reg.exe is here! If not take regedit.exe
@@ -203,27 +202,27 @@ final public class Regor
   private INativeRegistryHandler nativeHandler = null;
 
   /**
-   * If the registry entry is a normal string key (plain key) - use <code>getKeyType(Key key, String valueName)/<code> to get the type
+   * If the registry entry is a normal string key (plain key) - use <code>getKeyType(Key key, String valueName)</code> to get the type
    */
   public static final int PLAIN_KEY = 1;
 
   /**
-   * If the registry entry is a binary key - use <code>getKeyType(Key key, String valueName)/<code> to get the type
+   * If the registry entry is a binary key - use <code>getKeyType(Key key, String valueName)</code> to get the type
    */
   public static final int BINARY_KEY = 2;
 
   /**
-   * If the registry entry is a dword key - use <code>getKeyType(Key key, String valueName)/<code> to get the type
+   * If the registry entry is a dword key - use <code>getKeyType(Key key, String valueName)</code> to get the type
    */
   public static final int DWORD_KEY = 3;
 
   /**
-   * If the registry entry is a multi string key - use <code>getKeyType(Key key, String valueName)/<code> to get the type
+   * If the registry entry is a multi string key - use <code>getKeyType(Key key, String valueName)</code> to get the type
    */
   public static final int MULTI_KEY = 4;
 
   /**
-   * If the registry entry is a expand string key - use <code>getKeyType(Key key, String valueName)/<code> to get the type
+   * If the registry entry is a expand string key - use <code>getKeyType(Key key, String valueName)</code> to get the type
    */
   public static final int EXPAND_KEY = 5;
 
@@ -1694,7 +1693,7 @@ final public class Regor
 
   /**********************************************************************************************************************************
    * Method refreshes the cached entries
-   * @todo implement 100% funtionality - i dont know the deepth search of the subkinds
+   * TODO implement 100% funtionality - i dont know the deepth search of the subkinds
    * @throws RegistryErrorException
    *********************************************************************************************************************************/
   public void refreshCaches() throws RegistryErrorException

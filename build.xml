@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project default="create_run_jar" name="winRegistry">
+	
+    <target name="create_run_jar">
+        <jar destfile="./build/winRegistry.jar" filesetmanifest="mergewithoutmain">
+    		<manifest>
+    	      <attribute name="Implementation-Title" value="4.6"/>
+    	      <attribute name="Implementation-Version" value="21.12.2021 15:05"/> 
+    	      <attribute name="Implementation-Vendor" value="SIB Visions GmbH"/>
+              <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="./classes"/>
+        </jar>
+        <jar destfile="./build/winRegistry_src.jar" filesetmanifest="mergewithoutmain">
+            <fileset dir="./src"/>
+        </jar>
+    </target>
+</project>

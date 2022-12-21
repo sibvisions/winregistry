@@ -2022,7 +2022,7 @@ final public class Regor
         bw.newLine();
         bw.close();
         //ATTENTION!! THESE COULD BE A DEADLOCK BECAUSE I WAITFOR THE END OF PROCESS HERE
-        Runtime.getRuntime().exec("regedit /s /i " + f.getAbsolutePath()).waitFor(); //<-- Waiting for END of Process
+        Runtime.getRuntime().exec("regedit /s /i \"" + f.getAbsolutePath() + "\"").waitFor(); //<-- Waiting for END of Process
         if(!f.delete()) //if delete has no success
           f.deleteOnExit(); //mark it, for delete on exit
         setChachedValue(path, valueName, data);
@@ -2069,7 +2069,7 @@ final public class Regor
       try{
         f = File.createTempFile("regorexp",".jta"); //creates tmp File for storing the registry key
         //ATTENTION!! THESE COULD BE A DEADLOCK BECAUSE I WAITFOR THE END OF PROCESS HERE
-        Runtime.getRuntime().exec("regedit /e " + f.getAbsolutePath() + " \"" + path + "\"").waitFor(); //<-- WAITING FOR END OF PROCESS
+        Runtime.getRuntime().exec("regedit /e \"" + f.getAbsolutePath() + "\" \"" + path + "\"").waitFor(); //<-- WAITING FOR END OF PROCESS
         _waitForFile(f); //wait until the file size is not increasing anymore
         br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
         String line = "";
@@ -2160,7 +2160,7 @@ final public class Regor
         File f = File.createTempFile("regorexp",".jta"); //creates tmp File for storing the registry key
 //      long stamp1 = System.currentTimeMillis();
         //ATTENTION!! THESE COULD BE A DEADLOCK BECAUSE I WAITFOR THE END OF PROCESS HERE
-        Runtime.getRuntime().exec("regedit /e " + f.getAbsolutePath() + " \"" + key + "\"").waitFor(); //<-- WAITING FOR END OF PROCESS
+        Runtime.getRuntime().exec("regedit /e \"" + f.getAbsolutePath() + "\" \"" + key + "\"").waitFor(); //<-- WAITING FOR END OF PROCESS
         _waitForFile(f); //wait until the file size is not increasing anymore
 //      System.out.println(">>> NEEDED: " + (System.currentTimeMillis() - stamp1) + " " + f.getAbsolutePath());
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
@@ -2356,7 +2356,8 @@ final public class Regor
       try{
         f = File.createTempFile("regorexp",".jta"); //creates tmp File for storing the registry key
         //ATTENTION!! THESE COULD BE A DEADLOCK BECAUSE I WAITFOR THE END OF PROCESS HERE
-        Runtime.getRuntime().exec("cmd /c \"reg query \"" + path + "\" /v \"" + valueName + "\" > " + f.getAbsolutePath() + " 2>&1\"").waitFor(); //<-- WAITING FOR END OF PROCESS
+        Runtime.getRuntime().exec("cmd /c \"reg query \"" + path + "\" /v \"" + valueName + "\" > \"" + f.getAbsolutePath() + "\" 2>&1\"").waitFor(); //<-- WAITING FOR END OF PROCESS
+
         _waitForFile(f); //wait until the file size is not increasing anymore
         br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
         String line = "";
@@ -2442,7 +2443,7 @@ final public class Regor
       try{
         f = File.createTempFile("regorexp",".jta"); //creates tmp File for storing the registry key
         //ATTENTION!! THESE COULD BE A DEADLOCK BECAUSE I WAITFOR THE END OF PROCESS HERE
-        Runtime.getRuntime().exec("cmd /c \"reg query \"" + key + "\" /s > " + f.getAbsolutePath() + " 2>&1\"").waitFor(); //<-- WAITING FOR END OF PROCESS
+        Runtime.getRuntime().exec("cmd /c \"reg query \"" + key + "\" /s > \"" + f.getAbsolutePath() + "\" 2>&1\"").waitFor(); //<-- WAITING FOR END OF PROCESS
         _waitForFile(f); //wait until the file size is not increasing anymore
         br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
         String line = "";

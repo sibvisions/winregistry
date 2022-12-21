@@ -5,3 +5,10 @@ Registry reader/writter in Java without any additional dll. It uses the java.dll
 This is a fork of https://code.google.com/archive/p/java-registry/
 
 The library has been modified for compatibility with Java 11 and newer.
+
+
+## Changes ##
+
+- Eclipse project
+- Simple ant build
+- Support path names with spaces

@@ -909,7 +909,7 @@ final public class Regor
    * Method set the specified string value (DO NOT USE THIS METHOD FOR READING BINARY, DWORD, MULTI OR EXPAND ENTRIES - JUST
    * FOR SZ - STRING ENTRIES!!!)
    * Methode setzt (oder erstellt) einen Wert auf eine Zeichenfolge
-   * Will man den defaulteintrag ändern, so muss man valueName "" übergeben
+   * Will man den defaulteintrag Ã¤ndern, so muss man valueName "" Ã¼bergeben
    * @deprecated use <code>saveValue</code> instead of - just changed name
    * @param key obtained by openKey
    * @param valueName the string value name in the registry you want to set
@@ -926,7 +926,7 @@ final public class Regor
    * Method set the specified string value (DO NOT USE THIS METHOD FOR READING BINARY, DWORD, MULTI OR EXPAND ENTRIES - JUST
    * FOR SZ - STRING ENTRIES!!!)
    * Methode setzt (oder erstellt) einen Wert auf eine Zeichenfolge
-   * Will man den defaulteintrag ändern, so muss man valueName "" übergeben
+   * Will man den defaulteintrag Ã¤ndern, so muss man valueName "" Ã¼bergeben
    * @param key obtained by openKey
    * @param valueName the string value name in the registry you want to set
    * @param value the new value you want to set
@@ -1235,7 +1235,7 @@ final public class Regor
   /******************************************************************************************************************************
    * Create new key/subkey in the registry with the specified name
    * Attentition: if the key is successfully returned, you should close and open the key again, because the obtained key
-   * doesnt have a high access level (so maybe creating or deleting a key/value wouldn´t be successful)
+   * doesnt have a high access level (so maybe creating or deleting a key/value wouldnÂ´t be successful)
    * @param key handle to parent key obtained from openKey
    * @param subkey name of the key/subkey you want to create
    * @return on success the handle to the new key will be returned, otherwhise it will be null
@@ -1253,7 +1253,7 @@ final public class Regor
   /******************************************************************************************************************************
    * Create new key/subkey in the registry with the specified name
    * Attentition: if the key is successfully returned, you should close and open the key again, because the obtained key
-   * doesnt have a high access level (so maybe creating or deleting a key/value wouldn´t be successful)
+   * doesnt have a high access level (so maybe creating or deleting a key/value wouldnÂ´t be successful)
    * @param key handle to parent key obtained from openKey
    * @param subkey name of the key/subkey you want to create
    * @return on success the handle to the new key will be returned, otherwhise it will be -1
@@ -1455,7 +1455,7 @@ final public class Regor
     }
     else if(items.length == 1)
     {
-      //if no space in it, then it is maybe hex string without comma´s
+      //if no space in it, then it is maybe hex string without commaÂ´s
       if (hexCommaString.indexOf(" ") == -1)
       {
         try{
@@ -1484,7 +1484,7 @@ final public class Regor
   }
 
   /***********************************************************************************************************************************
-   * Method converts a plain String into a hex comma separated String with 0´s between
+   * Method converts a plain String into a hex comma separated String with 0Â´s between
    * @param plain String
    * @param appendNullSigns boolean if you want to add null signs (needed for multi and expand entries, but not for binary entry)
    * @return String the converted string
@@ -2307,7 +2307,10 @@ final public class Regor
         if(type.equals(BINARY_KEY_IDENT))
           type = "REG_BINARY";
         else if(type.equals(DWORD_KEY_IDENT))
+        {
           type = "REG_DWORD";
+          data = "0x" + data;
+        }
         else if(type.equals(MULTI_KEY_IDENT))
           type = "REG_MULTI_SZ";
         else if(type.equals(EXPAND_KEY_IDENT))
@@ -2402,6 +2405,8 @@ final public class Regor
                 strRet.append(DWORD_KEY);
               else if (items[0].equals("REG_BINARY"))
                 strRet.append(BINARY_KEY);*/
+              if (items[1].equals("REG_DWORD") && items[2].startsWith("0x"))
+                  items[2] = items[2].substring(2);
               strRet.append(items[2]);
               if(items[1].equals("REG_MULTI_SZ") && strRet.toString().endsWith("\\0\\0"))
                 strRet.setLength(strRet.length() - 4);

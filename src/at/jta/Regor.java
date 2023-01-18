@@ -2307,7 +2307,10 @@ final public class Regor
         if(type.equals(BINARY_KEY_IDENT))
           type = "REG_BINARY";
         else if(type.equals(DWORD_KEY_IDENT))
+        {
           type = "REG_DWORD";
+          data = "0x" + data;
+        }
         else if(type.equals(MULTI_KEY_IDENT))
           type = "REG_MULTI_SZ";
         else if(type.equals(EXPAND_KEY_IDENT))
@@ -2402,6 +2405,8 @@ final public class Regor
                 strRet.append(DWORD_KEY);
               else if (items[0].equals("REG_BINARY"))
                 strRet.append(BINARY_KEY);*/
+              if (items[1].equals("REG_DWORD") && items[2].startsWith("0x"))
+                  items[2] = items[2].substring(2);
               strRet.append(items[2]);
               if(items[1].equals("REG_MULTI_SZ") && strRet.toString().endsWith("\\0\\0"))
                 strRet.setLength(strRet.length() - 4);
